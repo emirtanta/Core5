@@ -1,0 +1,63 @@
+﻿@model IEnumerable<ApplicationUser>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+
+<div class="row">
+    <div class="col-md-6">
+        <h2 class="text-primary">Kullanıcı Listesi</h2>
+    </div>
+
+    <div class="col-md-6">
+        @* asp-page  denmesinin sebebi herhangi bir controller içerisinde tanımlanmadığından dolayıdır *@
+        <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-primary form-control"> <i class="bi bi-person-circle"></i> Kullanıcı Ekle</a>
+
+    </div>
+
+</div>
+
+<table class="table table-hover" id="myTable">
+    <thead>
+        <tr>
+            <th>
+                Adı
+            </th>
+            <th>Soyad</th>
+            <th>Email</th>
+            <th>Rol</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                <td>@item.Surname</td>
+                <td>@item.Email</td>
+                <td>@item.Role</td>
+                <td>
+                    <a asp-action="Delete" asp-route-id="@item.Id.ToString()" class="btn btn-danger"><i class="bi bi-trash"></i> Sil</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts{
+    <script type="text/javascript">
+
+        //jquery data table.js için tanımlandı
+        $(document).ready(function() {
+            $('#myTable').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Turkish.json"
+                }
+            });
+        });
+    </script>
+}
+

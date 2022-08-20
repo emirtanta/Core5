@@ -1,0 +1,176 @@
+﻿
+****************** Identity Sayfalarını Getirme ************
+
+=> Projeye sağ tıklanıp Add/New Scafolded Item kısmına basılır.
+
+=> Gelen Pencereden Identity kısmı seçilir ve Seçilen kısımdaki yeni açılan yerde de Identity seçilerek Add tuşuna basılır.
+
+=> Açılan yeni pencerede tüm alanlar seçilir ve data context değeri seçilerek Identity sayfalarını eklemiş oluruz.
+
+=> ApplicationUser.cs içerisindeki  değerleri Register.cs içerisindeki InputModel bölümüne  kopyalandı.
+
+=> Kopyalanan bu değerler Register.cshtml sayfasında yazıldı
+
+-------------------------------------------------------------
+
+/****** Admin Olan Kullanıcı Diğer Kullanıcıları Silme ***********/
+
+=> Areas klasöründe Admin/UserController içerisinde kodlar yazıldı
+
+-------------------------------------------------------------------
+
+/************* Facebook İle Kayıt Olma İşlemi ****************/
+
+=> Nuget üzerinde Microsoft.AspNetCore.Authentication.Facebook kütüphanesi indirilir (5.0.12)
+
+=> facebook hesabınla facebook adresine gir
+
+=> arama motoruna facebook for develoopers yazıp develoopers.facebook.com adresine gir
+
+=> Açılan sitede MyApp yazan yere gir ve Creat App butonuna bas
+
+=> Açılan yerden Tüketici kısmını seç ve Next'e bas
+
+=> Açılan pencerede Display Name kısmına herhangi bir isim ver ve CreateApp tuşuna bas
+
+=> Açılan pencereden Settings linkine tıkla ve Basic olanı seç
+
+=> Açılan pencerede AppID ve App Secred alanları var. AppId ve AppSecret değerlerini StartUp.cs içerisindeki Configuration bölümüne projede belirtilen şekilde ekle
+
+=> Develooper Facebook'daki AppId sayfasındaki Add Product linkine tıkla
+
+=> Açılan sayfada Facebook Login kısmındaki Set Up butonuna bas
+
+=> Açılan sayfada ne ile çalışacağı sorulyor web için ise web'i seçerek devam et . 
+
+=> Altta açılan bölüme sitenin url adresini ekle (visual studio bir index sayfasını web browser'da çalıştır ve linki kopyalayıp deveooper facebook sitesindeki url kısmına yapıştır.) Save tuşuna bas. Sonra da Continue butonuna bas
+
+=> Continue tuşuna basınca açılan bölümde solda bulunan Facebook Login/Settings kısmına bas
+
+=> Açılan pencerede Valid OAuth Redirect URI's kısmına localhost adresini ve ardına signin-facebook kısmını ekle (örneğin https//localhost44335/signin-facebook) ve Save Changes butonuna bas ve İşlemi BİTİR.
+
+=> Proje içerisindeki ExternalLogin.cs içerisine git ve facebook için giriş işlemleri kodlarını yaz.
+
+=> ExternalLogin.cs içerisindeki InputModel içerisine daha öncesinde ApplicationUsers.cs içerisinde tanımlanmış değeri kopyala
+
+------------------------------------------------------------
+
+/************ Google ile Kayıt Olama İşlemi ****************/
+
+=> Arama motoruna google console deveooper yazıp console.developers.google.com adresine gir.
+
+=> Ekranın sol üstünde bulunan New Project butonuna bas
+
+=> Açılan pencerede herhangi bir proje adı vererek create butonuna bas
+
+=> Oluşan projeye bas ve Enable Apis and Services kısmına bas
+
+=> Açılan pencerede arama kısmına google yaz ve google+api linkine tıkla ve Enable tuşuna bas
+
+=> Açılan sayfada sol köşe tarafta bulunan Google+ Api bölümüne tıkla
+
+=> Credential kımına tıkla. Açılan sayfada Cınfigure consten butonun atıkla.
+
+=> Açılan sayfada External kısmını seç ve Create butonuna bas.
+
+=> Açılan sayfada AppName kısmına herhangi bir ad verip Developer contact information kısmındaki email kısmına email adresini yaz. ve Kaydet butonuna bas.
+
+=> Creadential linkine kaydettikten sonra tekrar tıkla ve Create Credintial butonuna bas.
+
+=> ClientId değerini seç. Açılan sayfada web application kısmını seç Name alanına bir isim ver.
+
+=> Uris kımına localhost adresini kopyala ve yapıştır. 
+
+=> Authorized redirect URI's kısmınıda da https://localhost:44385/signin-google şekilnde yapıştır. Create butonuna bas. Çıkan ekranda bir api key değeri çıkacaktır.
+
+=> Projede nuget üzerinden Microsoft.AspNetCore.Authentication.Google paketini indir.
+
+=> Startup.cs kısmındaki Configure kısmında Facebook için tanımlanmış bölümün altına google içinde gerekli ayarları yap
+
+=> Login ve Register sayfalarında google butonun yerini ayarla
+
+-----------------------------------------------------------------
+
+/*************** Mail Doğrulama İşlemi ********************/
+
+=> Sendgrid sitesine gir Sign butonuna bas:
+
+=> Açılan sayfanın altında SingUp kısmına ba ve açılan sayfadaki Start for free butonuna bas
+
+=> Sengrid şifre=> /*Er199019901990
+
+=> Girş yapıldıktan sonra Setting/Api key kısmına tıkla
+
+=> Create key kısmından keyi oluştur.
+ApiKey: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
+
+=> Nuget üzeinden SendGrid yaz ve ilgili kütüphaneyi indir
+
+=> Visual Studio'da applicationjson kısmındaki en alt bölüme SendGridKey adında bir alan oluştur ve SendGrid sitesinden alınan keyi kopyala
+
+=> Email klasöründa EmailOptions.cs adında bir sınıf oluştur ve send grid için gerekli kodlamaları yap. Ardından EmailSender.cs kısmında da yine send grid için gerekli kodlamaları yap
+
+=> Startup.cs içerisinde ConfigureServices kısmında send grid ayarını aç.
+
+*****************************************************************
+
+/******************* Ödeme işlemleri Aşaması *******************/
+
+1=> Ödeme işlemleri için iyzico kullanıldı
+
+2=> iyzico.com adresine gidilir ve en alt kısımda bulunan Geliştirici başlığındaki Sandbox Sayfasına git ve üye giriş adresi ile siteye giriş yapılır.
+
+3=> Açılan ekranda sağ tarafta Ayarlar/Firma Ayarları kısmına basılır
+
+4=> Nuget üzerinden Iyzipay paketini yükle
+
+5=> https://dev.iyzipay.com/tr sitesindeki altta bulunan Github linkine tıkla
+
+6=> Github sayfasında iyzipay-dotnet kısmına tıkla
+
+7=> iyzipay-dotnet tıklanınca açılan sayfadaki Usage kısmındaki tüm kodları kopyala ve CartController içerisinde Payment fonksiyonu içerisine yapıştır.
+
+8=> kodu yapıştırdıktan sonra sandbox sayfasındaki Ayarlar/Firma Ayarları kısmına bası ve açılan yerdeki api anahtarını ve güvenlik anahtarını kopyala
+
+9=> kopyaladığın değerleri CartController içerisindeki Payment fonksiyonu içerisindeki apikey ve secret key yerlerine kopyala.
+
+10=> OrderHeader.cs kısmına kullanıcının kullanacağı kart bilgilerini içeren alanları tanımla migration ile veritabanına ekle.
+
+*****************************************************************
+
+/*************  Toastr JS kullanımı ***************************/
+
+1=> Nuget üzerinden NToastNotify indir
+
+2) StartUp.cs içerisinde ConfigureService kısmına aşağıdaki kodu ekle
+
+services.AddMvc().AddNToastNotifyToastr(new ToastrOptions
+            {
+                //kapat butonu
+                CloseButton=true,
+
+                //mesajın konumu
+                PositionClass=ToastPositions.TopRight,
+
+                //tekrarlanan yapıların tekrarlanmaması sağlanır
+                PreventDuplicates=true
+            });
+
+
+3) Layout kısmında scripts kısmının altında bir yere alttaki kodu ekle
+@await Component.InvokeAsync("NToastNotify")
+
+4) İstediğimiz controller içerisinde toastr'ı kullanabilmek için aşağıdaki kodu ekleyip yapıcı metot içerisinde bunu tanımlamak gerekmektedir.
+
+private readonly IToastNotification _toast;
+
+public CategoryController(IToastNotification toast)
+        {
+            _context = context;
+            _toast = toast;
+        }
+
+5) Controller içerisindeki herhangi bir action içerisine kayıt kaydedildikten sonra alttaki kodu ekleyip kullanabilirsin
+
+_toast.AddSuccessToastMessage("mesajınız");
+

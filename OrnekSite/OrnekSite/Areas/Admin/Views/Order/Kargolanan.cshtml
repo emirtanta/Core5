@@ -1,0 +1,71 @@
+﻿@model IEnumerable<OrnekSite.Models.OrderHeader>
+
+@{
+    ViewData["Title"] = "Kargolanan";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="btn-group d-grid gap-2 d-md-flex justify-content-end" role="group" aria-label="Basic outlined example">
+  <a asp-action="Beklenen" asp-area="Admin" asp-controller="Order" class="btn btn-outline-primary">Beklenen Siparişler</a>
+  <a asp-action="Onaylanan" asp-area="Admin" asp-controller="Order" class="btn btn-outline-primary">Onaylanan Siparişler</a>
+  <a asp-action="Kargolanan" asp-area="Admin" asp-controller="Order" class="btn btn-outline-primary active">Kargolanan Siparişler</a>
+  <a asp-action="Index" asp-area="Admin" asp-controller="Order" class="btn btn-outline-primary">Tüm Siparişler</a>
+</div>
+
+<br />
+
+<div class="container">
+<table class="table table-hover" id="myTable">
+    <thead>
+        <tr>
+            <th>Ad </th>
+            <th>Soyad </th>
+            <th>Telefon </th>
+            <th>Sipariş Durumu </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @item.Name
+            </td>
+            <td>@item.Surname</td>
+            <td>@item.PhoneNumber</td>
+            <td>@item.OrderStatus</td>
+            <td>
+                        @if (User.IsInRole(Diger.Role_Admin))
+                        {
+                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-success"><i class="bi bi-pencil"></i> Düzenle</a>
+                        }
+
+                        else
+                        {
+                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-success"><i class="bi bi-pencil"></i> Detay</a>    
+                        }
+                        
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+</div>
+
+
+@section Scripts{
+    <script type="text/javascript">
+        
+        //jquery data table.js için tanımlandı
+        $(document).ready( function () {
+            $('#myTable').DataTable({
+                "language": {
+            "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Turkish.json"
+        }
+            });
+        } );
+    </script>
+}
+
+
+

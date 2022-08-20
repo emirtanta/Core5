@@ -1,0 +1,24 @@
+﻿
+/********************* Identity Kütüphanesini Yükleme ****************/
+
+1) Projede Sağ Tık/Add/New Scafold kısmını seç
+
+2) Açılan pencerede sağdaki Identity kısmını seç
+
+3) Seçtiğin yerde checkbox'dan Iverride all files değerini işaretle 
+
+4) Data Context Class bölümünde ApplicationDbContext'i seç.
+
+5) Add butonuna bas
+
+******************************************************************
+
+=> Email klasörünün içerisinde Email için doğrulama ve şifre sıfırlama işlemleri için EmailSender.cs adında bir class oluşturuldu
+
+=> Startup sınıfında Configuration bölümünün içerisine email doğrulama işlemini yapabilmek için aşağıdaki kodu ekleyerek email doğrulama servisini açma k gerekmektedir.
+
+ services.AddSingleton<IEmailSender, EmailSender>();
+ //AddRazorRuntimeCompilation=> front-end tarafında yaptığımız değişiklikleri anında tarayıcı üzerinde görmemizi sağlar
+ services.AddControllersWithViews().AddRazorRuntimeCompilation();
+
+ services.AddRazorPages();

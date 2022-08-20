@@ -1,0 +1,18 @@
+﻿@model IEnumerable<XCafeProject.Models.Category>
+
+<div class="wrap-label-gallery filter-tope-group size27 flex-w flex-sb-m m-l-r-auto flex-col-c-sm p-l-15 p-r-15 m-b-60">
+        <a asp-area="Customer" asp-controller="Home" asp-action="Index" class="label-gallery txt26 trans-0-4 @(ViewBag.KategoriId==null?"is-actived":"")" data-filter="*">
+            Menüler
+        </a>
+
+    @foreach (var item in Model)
+    {
+        @* kategorilerin içerisindeki menülere tıklandığında getirir *@
+       <a asp-area="Customer" asp-controller="Home" asp-action="CategoryDetails" asp-route-id="@item.Id" class="label-gallery txt26 trans-0-4 @(ViewBag.KategoriId?.ToString()==item.Id.ToString()?"is-actived":"")" data-filter=".interior">
+            @item.Name
+        </a> 
+    }
+    
+
+        
+    </div>
